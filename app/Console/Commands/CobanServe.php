@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\LogTrackerAlarm;
+use App\Jobs\LogTrackerMessage;
+use App\Jobs\UpdateTrackerLocation;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use React\Socket\ConnectionInterface;
@@ -85,7 +88,10 @@ class CobanServe extends Command
         $address = $connection->getRemoteAddress();
 
         if (!array_key_exists($address, $this->clients)) {
-            $this->clients[$address] = $connection;
+            $this->clients[$address] = [
+                'connection' => $connection,
+                'serial' => null
+            ];
         }
 
         $connection->on("data", function ($message) use ($connection) {
@@ -102,7 +108,10 @@ class CobanServe extends Command
             } else if ($this->isDataMessage($message)) {
                 // If it is a valid data message
                 $parsedData = $this->parseIncomingMessage($message);
-                print_r($parsedData);
+                $this->processData($parsedData);
+            } else {
+                // Invalid message received
+                // $connection->close();
             }
         });
 
@@ -180,16 +189,16 @@ class CobanServe extends Command
      */
     private function parseIncomingMessage($message)
     {
-        
+
         $message_regex = "/[,:]+/";
         $rawData = preg_split($message_regex, $message);
-        
+
         $data = [];
         $data["model"] = $this->model_name;
         $data["serial"] = $rawData[1];
-        
+
         $responses = config('coban_gps_protocol.receive_command');
-        if(array_key_exists($rawData[2], $responses)) {
+        if (array_key_exists($rawData[2], $responses)) {
             $data["message"] = $responses[$rawData[2]];
         } else {
             $data["message"] = null;
@@ -220,5 +229,21 @@ class CobanServe extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Processes received data and dispatches relevant jobs
+     */
+    public function processData($data)
+    {
+        if ($data['message']) {
+            if ($data['message']['type'] == 'location') {
+                UpdateTrackerLocation::dispatch($data);
+            } else if ($data['message']['type'] == 'alarm') {
+                LogTrackerAlarm::dispatch($data);
+            } else if ($data['message']['type'] == 'response') {
+                LogTrackerMessage::dispatch($data);
+            }
+        }
     }
 }

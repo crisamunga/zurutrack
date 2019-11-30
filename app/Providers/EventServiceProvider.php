@@ -18,7 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        App\Events\Test::class => [],
+        \App\Events\TrackerLocationUpdated::class => [],
+        \App\Events\TrackerAlarmRaised::class => [],
+        \App\Events\TrackerMessageReceived::class => [],
     ];
 
     /**

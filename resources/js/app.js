@@ -7,6 +7,14 @@
 window.axios = require("axios");
 window.Vue = require("vue");
 
+import Echo from "laravel-echo";
+window.io = require("socket.io-client");
+window.Echo = new Echo({
+    broadcaster: "socket.io",
+    namespace: "zurutrack_database",
+    key: "zurutrack_database",
+    host: process.env.MIX_APP_URL + ":6001"
+});
 
 import Vuetify from "vuetify";
 import App from "./App.vue";
@@ -14,7 +22,6 @@ import router from "./router";
 import store from "./store";
 
 import "./components";
-
 
 Vue.use(Vuetify);
 

@@ -11,6 +11,10 @@
 |
 */
 
+use App\Broadcasting\TrackerLocationChannel;
+
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('Tracker.Location.{id}', TrackerLocationChannel::class);
