@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Servers;
 
 
 use Carbon\Carbon;
-use React\Socket\Server;
-use React\EventLoop\Factory;
+use Illuminate\Support\Facades\Redis;
 use React\Socket\ConnectionInterface;
 
 
@@ -14,7 +14,13 @@ class CobanServer
 
     private $server;
 
+    private $redis;
+
     private $clients;
+
+    private $command_channel = "zurutrack_database_test";
+
+    private $model_name = "Coban 103";
 
     public function __construct($port)
     {
@@ -24,13 +30,20 @@ class CobanServer
 
     public function start()
     {
-        $loop = Factory::create();
-        $this->server = new Server("0.0.0.0:{$this->port}", $loop);
+        $loop = \React\EventLoop\Factory::create();
+        $factory = new \Clue\React\Redis\Factory($loop);
 
+        $this->redis = $factory->createLazyClient('localhost');
+        $this->redis->subscribe($this->command_channel);
+        $this->redis->on('message', function ($channel, $payload) {
+            var_dump($channel, json_decode($payload));
+        });
+        
+        $this->server = new \React\Socket\Server("0.0.0.0:{$this->port}", $loop);
         $this->server->on("connection", function (ConnectionInterface $connection) {
             $this->onConnection($connection);
         });
-
+        
         echo "Started Coban tracker server on {$this->server->getAddress()}\n";
         $loop->run();
     }
