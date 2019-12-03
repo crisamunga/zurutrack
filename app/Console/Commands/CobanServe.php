@@ -36,8 +36,6 @@ class CobanServe extends Command
 
     private $clients = array();
 
-    private $redis_channel = "zurutrack_database_test";
-
     private $model_name = "Coban 103";
 
     /**
@@ -68,9 +66,12 @@ class CobanServe extends Command
         $factory = new \Clue\React\Redis\Factory($loop);
 
         $this->redis = $factory->createLazyClient('localhost');
-        $this->redis->subscribe($this->redis_channel);
+        $redis_prefix = config('database.redis.options.prefix');
+
+        $this->redis->subscribe("{$redis_prefix}private-tracker-control");
         $this->redis->on('message', function ($channel, $payload) {
-            var_dump($channel, json_decode($payload));
+            $message = json_decode($payload);
+            var_dump($channel, $message);
         });
 
         $this->server = new \React\Socket\Server("0.0.0.0:{$this->port}", $loop);

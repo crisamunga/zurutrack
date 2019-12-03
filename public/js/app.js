@@ -30675,7 +30675,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearTracker: function clearTracker(context) {
       context.commit("removeDrawerFilter");
-    }
+    },
+    stopEngine: function stopEngine(context) {},
+    resumeEngine: function resumeEngine(context) {}
   }
 });
 

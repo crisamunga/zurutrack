@@ -55,6 +55,12 @@ export default {
     },
     clearTracker(context) {
       context.commit("removeDrawerFilter");
+    },
+    stopEngine(context) {
+      
+    },
+    resumeEngine(context) {
+
     }
   }
 };
