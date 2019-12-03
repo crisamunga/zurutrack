@@ -16,7 +16,7 @@ class CreateFleetsTable extends Migration
         Schema::create('fleets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('user_id')->nullable();
+            $table->bigInteger('user_id')->nullable()->unsigned();
             $table->timestamps();
         });
     }

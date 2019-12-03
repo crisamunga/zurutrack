@@ -43,4 +43,19 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
+
+    public function added_trackers()
+    {
+        return $this->hasMany(Tracker::class, 'added_by_id');
+    }
+
+    public function added_clients()
+    {
+        return $this->hasMany(Client::class, 'added_by_id');
+    }
+
+    public function fleets()
+    {
+        return $this->hasMany(Fleet::class);
+    }
 }

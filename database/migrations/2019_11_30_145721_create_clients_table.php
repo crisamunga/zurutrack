@@ -16,8 +16,12 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email');
-            $table->bigInteger('reseller_id')->nullable();
+            $table->bigInteger('added_by_id')->nullable()->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('clients', function (Blueprint $table) {
+            $table->index('email');
         });
     }
 

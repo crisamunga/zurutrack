@@ -21,10 +21,10 @@ class CreateTrackersTable extends Migration
             $table->string('state');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->timestamp('added_on')->useCurrent();
-            $table->timestamp('expires_on');
-            $table->bigInteger('client_id')->nullable();
-            $table->bigInteger('reseller_id')->nullable();
+            $table->datetime('added_on')->useCurrent();
+            $table->datetime('expires_on');
+            $table->bigInteger('client_id')->nullable()->unsigned();
+            $table->bigInteger('added_by_id')->nullable()->unsigned();
             $table->timestamps();
         });
 

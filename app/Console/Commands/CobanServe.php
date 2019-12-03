@@ -2,13 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Events\EngineResumed;
-use App\Events\EngineStopped;
-use App\Events\TrackingDisabled;
-use App\Events\TrackingEnabled;
-use App\Jobs\LogTrackerAlarm;
-use App\Jobs\LogTrackerMessage;
-use App\Jobs\UpdateTrackerLocation;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use React\Socket\ConnectionInterface;
