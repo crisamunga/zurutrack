@@ -4,180 +4,180 @@ return [
 
     "receive_command" => [
         "101" => [
-            "type" => "location",
+            "job" => \App\Jobs\UpdateTrackerLocation::class,
             "description" => "Location data",
         ],
         "tracker" => [
-            "type" => "location",
+            "job" => \App\Jobs\UpdateTrackerLocation::class,
             "description" => "Location data",
         ],
         "dt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Cancel auto track successful",
         ],
 
         "et" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Cancel alarm successful",
         ],
 
         "gt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Set movement alarm successful",
         ],
 
         "ht" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Set overspeed alarm successful",
         ],
 
         "it" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Set time zone successful",
         ],
 
         "jt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Cut off oil and power successful",
         ],
 
         "kt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Resume oil and power successful",
         ],
 
         "lt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Set arm successful",
         ],
 
         "mt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Disarm successful",
         ],
 
         "nt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Switch to SMS mode successful",
         ],
 
         "ot" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Set GEO fence successful",
         ],
 
         "pt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Cancel geo fence successful",
         ],
 
         "qt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Start data upload successful",
         ],
 
         "st" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Stop data upload successful",
         ],
 
         "tt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Set less GPRS successful",
         ],
 
         "vt" => [
-            "type" => "response",
+            "job" => \App\Jobs\LogTrackerMessage::class,
             "description" => "Take photo request successful",
         ],
 
         "help me" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "SOS alarm",
         ],
 
         "low battery" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Low battery alarm",
         ],
 
         "move" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Movement alarm",
         ],
 
         "speed" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Overspeed alarm",
         ],
 
         "stockade" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "GEO fence has been breached",
         ],
 
         "ac alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Vehicle was powered off",
         ],
 
         "door alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Vehicle door is open",
         ],
 
         "sensor alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Shock alarm",
         ],
 
         "acc alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "ACC alarm",
         ],
 
         "acc off" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "ACC off alarm",
         ],
 
         "acc on" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "ACC on alarm",
         ],
 
         "accident alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Accident may have occured",
         ],
 
         "bonnet alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Bonnet alarm",
         ],
 
         "footbreak alarm" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Footbreak alarm",
         ],
 
         "T:" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "High temperature alarm",
         ],
 
         "oil" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Low fuel alarm",
         ],
 
         "DTC" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Diagnostic problem in terminal",
         ],
 
         "service" => [
-            "type" => "alarm",
+            "job" => \App\Jobs\LogTrackerAlarm::class,
             "description" => "Vehicle maintenance notification",
         ]
     ],

@@ -244,13 +244,7 @@ class CobanServe extends Command
     public function processData($data)
     {
         if ($data['message']) {
-            if ($data['message']['type'] == 'location') {
-                UpdateTrackerLocation::dispatch($data);
-            } else if ($data['message']['type'] == 'alarm') {
-                LogTrackerAlarm::dispatch($data);
-            } else if ($data['message']['type'] == 'response') {
-                LogTrackerMessage::dispatch($data);
-            }
+            $data['message']['job']::dispatch($data);
         }
     }
 }
