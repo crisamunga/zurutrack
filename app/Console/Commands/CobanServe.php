@@ -2,6 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Events\EngineResumed;
+use App\Events\EngineStopped;
+use App\Events\TrackingDisabled;
+use App\Events\TrackingEnabled;
 use App\Jobs\LogTrackerAlarm;
 use App\Jobs\LogTrackerMessage;
 use App\Jobs\UpdateTrackerLocation;
@@ -71,7 +75,7 @@ class CobanServe extends Command
         $this->redis->subscribe("{$redis_prefix}private-tracker-control");
         $this->redis->on('message', function ($channel, $payload) {
             $message = json_decode($payload);
-            var_dump($channel, $message);
+            $this->processCommand($message);
         });
 
         $this->server = new \React\Socket\Server("0.0.0.0:{$this->port}", $loop);
@@ -197,14 +201,7 @@ class CobanServe extends Command
         $data = [];
         $data["model"] = $this->model_name;
         $data["serial"] = $rawData[1];
-
-        $responses = config('coban_gps_protocol.receive_command');
-        if (array_key_exists($rawData[2], $responses)) {
-            $data["message"] = $responses[$rawData[2]];
-        } else {
-            $data["message"] = null;
-        }
-
+        $data["message"] = config('coban_gps_protocol.receive_command.'.$rawData[2]);
         $data["time"] = Carbon::parse("20$rawData[3]");
         $data["phone_number"] = $rawData[4];
         $data["signal_present"] = $rawData[5] == "F";
@@ -230,6 +227,15 @@ class CobanServe extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Processes commands received from the laravel app via Redis
+     */
+    public function processCommand($command) 
+    {
+        $response = config('coban_gps_protocol.send_command.'.$command->event);
+        var_dump($response);
     }
 
     /**

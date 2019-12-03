@@ -1,17 +1,6 @@
 <?php
 
 return [
-    // Separator
-    "delimiter" => "/,/",
-
-    // Terminator for each message. Removed with rtrim
-    "terminator" => ";",
-
-    // Prefix for each message. Removed with preg replace
-    "prefix" => "##,imei:",
-
-    // Format => string or binary
-    "format" => "string",
 
     "receive_command" => [
         "101" => [
@@ -194,22 +183,14 @@ return [
     ],
 
     "send_command" => [
-        // Separator
-        "delimiter" => ",",
 
-        // Terminator for each message. Removed with rtrim
-        "terminator" => ";",
+        \App\Events\TrackingEnabled::class => "**,imei:%s,C,10s",
 
-        // Prefix for each message. Removed with preg replace
-        "prefix" => "**,imei:",
+        \App\Events\TrackingDisabled::class => "**,imei:%s,D",
 
-        "enable_tracking" => "**,imei:%s,C,10s",
+        \App\Events\EngineStopped::class => "**,imei:%s,J",
 
-        "disable_tracking" => "**,imei:%s,D",
-
-        "stop_engine" => "**,imei:%s,J",
-
-        "start_engine" => "**,imei:%s,K",
+        \App\Events\EngineResumed::class => "**,imei:%s,K",
 
     ]
 ];
