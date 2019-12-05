@@ -17,20 +17,20 @@ class CreateTrackersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('serial');
-            $table->string('model');
             $table->string('state');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->datetime('added_on')->useCurrent();
             $table->datetime('expires_on');
+            $table->bigInteger('tracker_model_id')->nullable()->unsigned();
             $table->bigInteger('client_id')->nullable()->unsigned();
             $table->bigInteger('added_by_id')->nullable()->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::table('trackers', function (Blueprint $table) {
             $table->index('serial');
-            $table->index('model');
         });
     }
 

@@ -44,14 +44,14 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($password);
     }
 
-    public function added_trackers()
+    public function trackers_added()
     {
         return $this->hasMany(Tracker::class, 'added_by_id');
     }
 
-    public function added_clients()
+    public function trackers_assigned()
     {
-        return $this->hasMany(Client::class, 'added_by_id');
+        return $this->hasMany(Tracker::class, 'client_id');
     }
 
     public function fleets()

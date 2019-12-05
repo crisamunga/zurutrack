@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelationshipsTrackerFleetClient extends Migration
+class Relationships extends Migration
 {
     /**
      * Run the migrations.
@@ -24,16 +24,13 @@ class RelationshipsTrackerFleetClient extends Migration
             $table->foreign('tracker_id')->references('id')->on('trackers')->onDelete('cascade');
         });
 
-        Schema::table('clients', function (Blueprint $table) {
-            $table->foreign('added_by_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
         Schema::table('fleets', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::table('trackers', function (Blueprint $table) {
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('set null');
+            $table->foreign('client_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('tracker_model_id')->references('id')->on('tracker_models')->onDelete('set null');
             $table->foreign('added_by_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -48,10 +45,7 @@ class RelationshipsTrackerFleetClient extends Migration
         Schema::table('trackers', function (Blueprint $table) {
             $table->dropForeign(['client_id']);
             $table->dropForeign(['added_by_id']);
-        });
-
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropForeign(['added_by_id']);
+            $table->dropForeign(['tracker_model_id']);
         });
 
         Schema::table('fleets', function (Blueprint $table) {

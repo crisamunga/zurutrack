@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateTrackerModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('tracker_models', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email');
-            $table->bigInteger('added_by_id')->nullable()->unsigned();
+            $table->string('name');
+            $table->string('protocol');
+            $table->text('configuration_instructions')->nullable();
             $table->timestamps();
-        });
-
-        Schema::table('clients', function (Blueprint $table) {
-            $table->index('email');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('tracker_models');
     }
 }

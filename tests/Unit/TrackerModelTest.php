@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Tracker;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,7 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TrackerModelTest extends TestCase
 {
-    use RefreshDatabase;
     private $tracker;
     /**
      * A basic unit test example.
@@ -19,14 +17,10 @@ class TrackerModelTest extends TestCase
      */
     public function testCanCreateTrackerModel()
     {
-        $this->tracker = Tracker::create([
-            [
-                'name' => 'Test tracker',
-                'serial' => '111111111111',
-                'model' => 'Fake Model',
-                'added_on' => Carbon::now()
-            ]
+        $user = factory(\App\User::class)->make();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id
         ]);
-        $this->assertTrue(true);
     }
 }
