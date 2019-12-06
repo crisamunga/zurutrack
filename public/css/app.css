@@ -63,6 +63,15 @@
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.bg-secondary-reverse {
+  background: #614385;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, left top, right top, from(#614385), to(#516395));
+  background: linear-gradient(to right, #614385, #516395);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 .bg-dark {
   background: #2c3e50;
   /* fallback for old browsers */

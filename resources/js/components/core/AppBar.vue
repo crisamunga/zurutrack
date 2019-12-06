@@ -1,11 +1,9 @@
 <template>
-  <v-app-bar app dark class="bg-primary">
-    <v-app-bar-nav-icon @click="toggleDrawer"></v-app-bar-nav-icon>
+  <v-app-bar app dark class="bg-secondary-reverse">
+    <v-app-bar-nav-icon v-if="!drawer" @click="toggleDrawer"></v-app-bar-nav-icon>
 
     <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-      <span class="hidden-sm-and-down text-uppercase font-weight-light nunito">
-        Zuru Track
-      </span>
+      <span class="hidden-sm-and-down text-uppercase font-weight-light nunito">Zuru Track</span>
     </v-toolbar-title>
     <v-tabs icons-and-text background-color="transparent" v-if="$vuetify.breakpoint.mdAndUp">
       <v-tab to="/" class="overline">
@@ -43,6 +41,11 @@ export default {
         { title: "Logout", icon: "mdi-power" }
       ]
     };
+  },
+  computed: {
+    drawer() {
+      return this.$store.state.app.drawer;
+    }
   },
   methods: {
     toggleDrawer() {
