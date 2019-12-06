@@ -27231,7 +27231,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: "socket.io",
   namespace: "zurutrack_database",
   key: "zurutrack_database",
-  host: "http://zurutrack.test" + ":6001"
+  host: "http://zurutrack.test"
 });
 
 
@@ -30521,10 +30521,12 @@ var user = JSON.parse(localStorage.getItem("user"));
           });
           resolve(response);
         })["catch"](function (error) {
+          localStorage.removeItem("user");
+          context.commit("setUser", null);
           context.dispatch("alert/error", error, {
             root: true
           });
-          reject(error.response);
+          resolve(response);
         });
       });
     }

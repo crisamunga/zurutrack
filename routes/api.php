@@ -25,3 +25,5 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth:api', 'namespace' => 
     Route::post('/stop-engine', 'TrackerSettingsController@stopEngine');
     Route::post('/resume-engine', 'TrackerSettingsController@resumeEngine');
 });
+
+Route::apiResource('fleets', 'Api\FleetController')->middleware('auth:api');

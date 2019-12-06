@@ -23,7 +23,6 @@ class CreateTrackersTable extends Migration
             $table->datetime('added_on')->useCurrent();
             $table->datetime('expires_on');
             $table->bigInteger('tracker_model_id')->nullable()->unsigned();
-            $table->bigInteger('client_id')->nullable()->unsigned();
             $table->bigInteger('added_by_id')->nullable()->unsigned();
             $table->softDeletes();
             $table->timestamps();

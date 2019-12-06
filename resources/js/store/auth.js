@@ -76,8 +76,10 @@ export default {
                         resolve(response);
                     })
                     .catch(error => {
+                        localStorage.removeItem("user");
+                        context.commit("setUser", null);
                         context.dispatch("alert/error", error, { root: true });
-                        reject(error.response);
+                        resolve(response);
                     });
             });
         }

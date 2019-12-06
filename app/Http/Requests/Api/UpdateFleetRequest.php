@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTrackerRequest extends FormRequest
+class UpdateFleetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class CreateTrackerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'serial' => 'required|string',
-            'model' => 'required|string',
+            'name' => 'string|required'
         ];
     }
 }

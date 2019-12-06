@@ -24,6 +24,17 @@ class Relationships extends Migration
             $table->foreign('tracker_id')->references('id')->on('trackers')->onDelete('cascade');
         });
 
+        Schema::create('tracker_user', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('tracker_id')->nullable()->unsigned();
+            $table->bigInteger('user_id')->nullable()->unsigned();
+        });
+
+        Schema::table('tracker_user', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('tracker_id')->references('id')->on('trackers')->onDelete('cascade');
+        });
+
         Schema::table('fleets', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -57,6 +68,12 @@ class Relationships extends Migration
             $table->dropForeign(['tracker_id']);
         });
 
+        Schema::table('tracker_user', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['tracker_id']);
+        });
+
         Schema::dropIfExists('fleet_tracker');
+        Schema::dropIfExists('tracker_user');
     }
 }

@@ -13,7 +13,7 @@ window.Echo = new Echo({
     broadcaster: "socket.io",
     namespace: "zurutrack_database",
     key: "zurutrack_database",
-    host: process.env.MIX_APP_URL + ":6001"
+    host: process.env.MIX_APP_URL
 });
 
 import Vuetify from "vuetify";
