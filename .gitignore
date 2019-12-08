@@ -11,5 +11,12 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Development folders
 /.dev
+
+# IDE
 /.vscode
+
+# Echo server files
+laravel-echo-server.lock

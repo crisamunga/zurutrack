@@ -49,13 +49,13 @@ class User extends Authenticatable
         return $this->hasMany(Tracker::class, 'added_by_id');
     }
 
-    public function trackers_assigned()
-    {
-        return $this->hasMany(Tracker::class, 'client_id');
-    }
-
     public function fleets()
     {
         return $this->hasMany(Fleet::class);
+    }
+
+    public function trackers()
+    {
+        return $this->belongsToMany(Tracker::class, 'tracker_user', 'user_id', 'tracker_id')->withPivot('is_admin');
     }
 }

@@ -13,7 +13,7 @@ class UpdateTrackerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,8 +25,8 @@ class UpdateTrackerRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'serial' => 'string',
-            'model' => 'string',
+            'serial' => 'string|unique:trackers,serial,'.$this->route('tracker')->id,
+            'tracker_model_id' => 'integer|exists:tracker_models,id',
         ];
     }
 }

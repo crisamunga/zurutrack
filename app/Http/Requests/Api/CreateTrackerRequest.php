@@ -25,8 +25,8 @@ class CreateTrackerRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'serial' => 'required|string',
-            'model' => 'required|string',
+            'serial' => 'required|string|unique:trackers,serial',
+            'tracker_model_id' => 'required|integer|exists:tracker_models,id',
         ];
     }
 }

@@ -15,13 +15,11 @@ class TrackerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             "id" => $this->id,
             "name" => $this->name,
             "serial" => $this->serial,
             "model" => $this->model,
-            "added_by" => new UserResource($this->added_by),
-            "client" => new UserResource($this->client),
             "added_on" => $this->added_on,
             "expires_on" => $this->expires_on,
             "state" => $this->state,
@@ -30,5 +28,9 @@ class TrackerResource extends JsonResource
                     "lng" => $this->longitude
                 ]
             ];
+        if (isset($this->pivot) && isset($this->pivot->is_admin)) {
+            $data['is_admin'] = $this->pivot->is_admin;
+        }
+        return $data;
     }
 }

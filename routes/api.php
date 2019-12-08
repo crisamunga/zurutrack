@@ -27,3 +27,8 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth:api', 'namespace' => 
 });
 
 Route::apiResource('fleets', 'Api\FleetController')->middleware('auth:api');
+Route::apiResource('trackers', 'Api\TrackerController')->middleware('auth:api');
+
+Route::fallback(function(){
+    return response()->json(['message' => 'Not Found.'], 404);
+})->name('api.fallback.404');

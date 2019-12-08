@@ -20,12 +20,34 @@ class FleetApiEndpointsTest extends TestCase
 
         $this->user = factory(User::class)->create();
     }
+
+    public function test_all_endpoints_require_authentication()
+    {
+        // Fails is unauthenticated
+        $response = $this->json("GET", '/api/fleets');
+        $response->assertStatus(401);
+
+
+        $response = $this->json('POST', '/api/fleets', ['name' => 'Fleet']);
+        $response->assertStatus(401);
+
+        $response = $this->json("GET", "/api/fleets/0");
+        $response->assertStatus(401);
+
+
+        $response = $this->json('PUT', '/api/fleets/0', ['name' => 'Fleet']);
+        $response->assertStatus(401);
+
+        $response = $this->json("DELETE", "/api/fleets/0");
+        $response->assertStatus(401);
+    }
+
     /**
      * Test index route
      *
      * @return void
      */
-    public function testIndex()
+    public function test_can_get_all_fleets()
     {
         Passport::actingAs($this->user);
         $response = $this->json("GET", '/api/fleets');
@@ -37,9 +59,8 @@ class FleetApiEndpointsTest extends TestCase
      *
      * @return void
      */
-    public function testStore()
+    public function test_can_create_new_fleet()
     {
-
         Passport::actingAs($this->user);
         $response = $this->json('POST', '/api/fleets', ['name' => 'Fleet']);
         $response->assertStatus(201);
@@ -48,7 +69,7 @@ class FleetApiEndpointsTest extends TestCase
     /**
      * Tests the show method
      */
-    public function testShow()
+    public function test_can_get_fleet_details()
     {
         $fleet = factory(Fleet::class)->create();
         $this->user->fleets()->save($fleet);
@@ -61,7 +82,7 @@ class FleetApiEndpointsTest extends TestCase
     /**
      * Tests the update method
      */
-    public function testUpdate()
+    public function test_can_update_fleet_details()
     {
         $fleet = factory(Fleet::class)->create();
         $this->user->fleets()->save($fleet);
@@ -71,9 +92,8 @@ class FleetApiEndpointsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testDelete()
+    public function test_can_delete_fleet()
     {
-        
         $fleet = factory(Fleet::class)->create();
         $this->user->fleets()->save($fleet);
 

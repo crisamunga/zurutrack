@@ -1,9 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Tracker;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Api\TrackerResource;
+use App\Http\Requests\Api\CreateTrackerRequest;
+use App\Http\Requests\Api\UpdateTrackerRequest;
+use App\Http\Resources\UserResource;
 
 class TrackerController extends Controller
 {
@@ -14,8 +20,9 @@ class TrackerController extends Controller
      */
     public function index()
     {
-        $trackers = Tracker::all();
-        return response()->json($trackers, 200);
+        $user = Auth::user();
+        $trackers = $user->trackers;
+        return TrackerResource::collection($trackers);
     }
 
     /**
@@ -24,9 +31,14 @@ class TrackerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTrackerRequest $request)
     {
-        
+        $data = $request->validated();
+        $user = Auth::user();
+        $data['added_by_id'] = $user->id;
+        $tracker = Tracker::create($data);
+        $tracker->users()->save($user, ['is_admin' => true]);
+        return new TrackerResource($tracker);
     }
 
     /**
@@ -37,7 +49,7 @@ class TrackerController extends Controller
      */
     public function show(Tracker $tracker)
     {
-        return response()->json($tracker, 200);
+        return new TrackerResource($tracker);
     }
 
     /**
@@ -47,9 +59,11 @@ class TrackerController extends Controller
      * @param  \App\Tracker  $tracker
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tracker $tracker)
+    public function update(UpdateTrackerRequest $request, Tracker $tracker)
     {
-        
+        $data = $request->validated();
+        $tracker->update($data);
+        return new TrackerResource($tracker);
     }
 
     /**
@@ -60,6 +74,17 @@ class TrackerController extends Controller
      */
     public function destroy(Tracker $tracker)
     {
-        //
+        $tracker->delete();
+        return response()->json(null);
+    }
+
+    public function get_users(Tracker $tracker)
+    {
+        return UserResource::collection($tracker->users);
+    }
+
+    public function set_users(Request $request, Tracker $tracker)
+    {
+        # code...
     }
 }
