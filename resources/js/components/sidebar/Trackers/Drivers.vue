@@ -3,7 +3,7 @@
     <v-toolbar dark color="transparent">
       <buttons-hover-icon icon="mdi-arrow-left" label="Back" @click="back" />
       <v-spacer></v-spacer>
-      <v-toolbar-title>Waypoints</v-toolbar-title>
+      <v-toolbar-title>Drivers</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text small>
         <v-icon left>mdi-plus</v-icon>Add

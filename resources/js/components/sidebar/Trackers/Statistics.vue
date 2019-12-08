@@ -5,6 +5,9 @@
       <v-spacer></v-spacer>
       <v-toolbar-title>Statistics</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn text small>
+        <v-icon left>mdi-dots-horizontal</v-icon>More
+      </v-btn>
     </v-toolbar>
 
     <v-list class="transparent">

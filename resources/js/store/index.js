@@ -2,11 +2,13 @@ import Vue from "vue";
 import Vuex from "vuex";
 // import axios from "axios";
 
-import authModule from "./auth";
-import alertModule from "./alert";
-import appModule from "./app";
-import trackersModule from "./trackers";
-import fleetsModule from "./fleets";
+import auth from "./auth";
+import alert from "./alert";
+import app from "./app";
+import trackers from "./trackers";
+import fleets from "./fleets";
+import clients from "./clients";
+import geofences from "./geofences";
 
 Vue.use(Vuex);
 
@@ -15,11 +17,13 @@ const store = new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    auth: authModule,
-    alert: alertModule,
-    app: appModule,
-    trackers: trackersModule,
-    fleets: fleetsModule
+    auth,
+    alert,
+    app,
+    trackers,
+    fleets,
+    clients,
+    geofences,
   }
 });
 

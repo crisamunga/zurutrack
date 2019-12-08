@@ -39,13 +39,6 @@ export default {
       itemsPerPageOptions: [5, 10, 25, 50],
       itemsPerPage: 5,
       search: "",
-      filter: {},
-      owned: [
-        {
-          title: "Main Fleet",
-          count: "2"
-        }
-      ]
     };
   },
   computed: {

@@ -3,12 +3,12 @@ export default {
   state: {
     fleets: [
       {
-        id: 0,
+        id: 1,
         name: "Default fleet",
         trackers_count: 0
       },
       {
-        id: 0,
+        id: 2,
         name: "Fleet One",
         trackers_count: 1
       }
