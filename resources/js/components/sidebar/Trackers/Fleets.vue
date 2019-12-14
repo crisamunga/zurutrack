@@ -1,59 +1,18 @@
 <template>
   <div>
     <v-toolbar dark color="transparent">
-      <buttons-hover-icon icon="mdi-arrow-left" label="Back" @click="back" />
+      <buttons-hover-icon top icon="mdi-arrow-left" label="Back" @click="back" />
       <v-spacer></v-spacer>
       <v-toolbar-title>Fleets</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text small>
-        <v-icon left>mdi-plus</v-icon>Add
+      <sidebar-fleets-add />
+      <v-btn text small @click="show = null" v-if="show">
+        <v-icon left>mdi-close</v-icon>Cancel
       </v-btn>
     </v-toolbar>
 
-    <v-data-iterator
-      :items="fleets"
-      :items-per-page.sync="itemsPerPage"
-      :search="search"
-      :footer-props="{ itemsPerPageOptions }"
-      :single-select="true"
-      v-model="select"
-    >
-      <template v-slot:header>
-        <v-toolbar color="transparent" flat>
-          <v-text-field
-            filled
-            shaped
-            v-model="search"
-            hide-details
-            label="Search"
-            clearable
-            single-line
-          >
-            <template v-slot:append>
-              <v-icon v-if="!search || search == null">mdi-magnify</v-icon>
-            </template>
-          </v-text-field>
-        </v-toolbar>
-      </template>
-      <template v-slot:default="{ items, isSelected, select }">
-        <v-list-item v-for="(item, index) in items" :key="index">
-          <v-list-item-avatar>
-            <v-avatar :color="getRandomColor(item.name)" size="48">
-              <span class="white--text">{{ item.name.charAt(0) }}</span>
-            </v-avatar>
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title class="text-uppercase">{{ item.name }}</v-list-item-title>
-            <v-list-item-subtitle class="caption">{{ item.trackers_count }} Trackers</v-list-item-subtitle>
-          </v-list-item-content>
-
-          <v-list-item-action>
-            <v-switch :input-value="isSelected(item)" @change="(v) => select(item, v)" />
-          </v-list-item-action>
-        </v-list-item>
-      </template>
-    </v-data-iterator>
+    <sidebar-fleets-list :tracker="tracker" v-if="!show" @edit="edit" @remove="remove" />
+    <sidebar-fleets-delete :fleet="fleet" v-if="show == 'remove'" @saved="show = null" />
   </div>
 </template>
 
@@ -70,10 +29,8 @@ export default {
   },
   data() {
     return {
-      itemsPerPageOptions: [5, 10, 25, 50],
-      itemsPerPage: 5,
-      search: "",
-      select: []
+      show: null,
+      fleet: null
     };
   },
   computed: {
@@ -83,7 +40,19 @@ export default {
   },
   methods: {
     back() {
-      this.$emit("back");
+      if (this.show) {
+        this.show = null;
+      } else {
+        this.$emit("back");
+      }
+    },
+    edit(fleet) {
+      this.show = "edit";
+      this.fleet = fleet;
+    },
+    remove(fleet) {
+      this.show = "remove";
+      this.fleet = fleet;
     },
     getRandomColor(name) {
       return colors.getSpecificColor(name.charCodeAt(0));

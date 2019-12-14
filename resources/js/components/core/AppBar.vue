@@ -3,10 +3,10 @@
     <v-app-bar-nav-icon v-if="!drawer" @click="toggleDrawer"></v-app-bar-nav-icon>
 
     <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-      <span class="hidden-sm-and-down text-uppercase font-weight-light nunito">Zuru Track</span>
+      <span class="hidden-sm-and-down text-uppercase font-weight-light montesarrat">Zuru Track</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <appbar-apps-menu v-if="$vuetify.breakpoint.smAndDown"></appbar-apps-menu>
+    <appbar-apps-menu></appbar-apps-menu>
     <appbar-notification-menu></appbar-notification-menu>
     <appbar-account-menu></appbar-account-menu>
   </v-app-bar>

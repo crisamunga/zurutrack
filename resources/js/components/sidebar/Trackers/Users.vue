@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar dark color="transparent">
-      <buttons-hover-icon icon="mdi-arrow-left" label="Back" @click="back" />
+      <buttons-hover-icon top icon="mdi-arrow-left" label="Back" @click="back" />
       <v-spacer></v-spacer>
       <v-toolbar-title>Users</v-toolbar-title>
       <v-spacer></v-spacer>

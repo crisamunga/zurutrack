@@ -10,15 +10,15 @@
 
         <v-spacer></v-spacer>
 
-        <trackers-list>
+        <!-- <trackers-list>
           <template v-slot:activator="{ on }">
             <v-btn icon v-on="on"><v-icon>mdi-view-dashboard</v-icon></v-btn>
           </template>
-        </trackers-list>
+        </trackers-list> -->
 
         <sidebar-trackers-create>
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on"><v-icon>mdi-plus</v-icon></v-btn>
+            <buttons-hover-icon bottom icon="mdi-plus" label="New tracker" v-on="on" />
           </template>
         </sidebar-trackers-create>
 

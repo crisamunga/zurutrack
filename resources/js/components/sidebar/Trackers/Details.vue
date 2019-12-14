@@ -1,7 +1,7 @@
 <template>
   <div class="pb-5">
     <v-toolbar dark color="transparent">
-      <buttons-hover-icon icon="mdi-arrow-left" label="Back" @click="back" />
+      <buttons-hover-icon top icon="mdi-arrow-left" label="Back" @click="back" />
       <v-spacer></v-spacer>
       <v-toolbar-title>Details</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -53,8 +53,8 @@
           <v-list-item-subtitle>Fleet</v-list-item-subtitle>
           <v-list-item-title>{{ this.tracker.fleet || "No fleet set" }}</v-list-item-title>
         </v-list-item-content>
-        <buttons-hover-icon icon="mdi-pencil" label="Edit" />
-        <buttons-hover-icon icon="mdi-close" label="Delete" />
+        <buttons-hover-icon top icon="mdi-pencil" label="Edit" />
+        <buttons-hover-icon top icon="mdi-close" label="Delete" />
       </v-list-item>
     </v-list>
   </div>
