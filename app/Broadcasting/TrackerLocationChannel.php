@@ -3,6 +3,8 @@
 namespace App\Broadcasting;
 
 use App\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class TrackerLocationChannel
 {

@@ -66,7 +66,6 @@ export default {
     },
     store(context, tracker) {
       let url = `${process.env.MIX_APP_URL}/webapi/trackers`;
-
       return new Promise((resolve, reject) => {
         axios
           .post(url, tracker)
@@ -81,7 +80,6 @@ export default {
     },
     update(context, tracker_id, tracker) {
       let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
-
       return new Promise((resolve, reject) => {
         axios
           .put(url, tracker)
@@ -96,10 +94,6 @@ export default {
     },
     delete(context, tracker_id) {
       let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
-
       return new Promise((resolve, reject) => {
         axios
           .delete(url)

@@ -35,10 +35,6 @@ export default {
   actions: {
     index(context) {
       let url = `${process.env.MIX_APP_URL}/webapi/fleets`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
-
       return new Promise((resolve, reject) => {
         axios
           .get(url)
@@ -53,10 +49,6 @@ export default {
     },
     store(context, fleet) {
       let url = `${process.env.MIX_APP_URL}/webapi/fleets`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
-
       return new Promise((resolve, reject) => {
         axios
           .post(url, fleet)
@@ -70,12 +62,7 @@ export default {
       });
     },
     update(context, fleet_id, fleet) {
-
       let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
-
       return new Promise((resolve, reject) => {
         axios
           .put(url, fleet)
@@ -89,12 +76,7 @@ export default {
       });
     },
     delete(context, fleet_id) {
-
       let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
-
       return new Promise((resolve, reject) => {
         axios
           .delete(url)

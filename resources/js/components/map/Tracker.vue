@@ -40,9 +40,6 @@ export default {
             },
             map: this.map
         });
-        // !This is such a hack. Find a better place to put this or maybe set it once
-        Echo.connector.options.auth.headers["Authorization"] =
-            "Bearer " + this.$store.state.auth.user.access_token;
         Echo.private("Tracker.Location." + this.tracker.id).listen(
             ".App\\Events\\TrackerLocationUpdated",
             e => {

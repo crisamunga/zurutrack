@@ -11,8 +11,6 @@
 |
 */
 
-// Auth::routes();
-
 // Authentication routes
 Route::group(['namespace' => 'Web'], function () {
     Auth::routes();
@@ -25,7 +23,6 @@ Route::group(['prefix' => 'webapi', 'middleware' => 'auth', 'namespace' => 'Api'
     Route::apiResource('tracker-models', 'TrackerModelController');
 });
 
-Route::get('/', 'HomeController@index')->name('home')->middleware("auth");
+// Standard page routes
 
-
-// Route::fallback('Web\IndexController@index');
+Route::get('/', 'Web\HomeController@index')->name('home')->middleware("auth");

@@ -10,7 +10,7 @@
   </v-list-item>
   <!-- <v-btn icon @click="logout">
     <v-icon>mdi-power</v-icon>
-  </v-btn> -->
+  </v-btn>-->
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("auth/logout").then(result => {
-        this.$router.push({ name: "login" });
+        window.location.href = "/login";
       });
     }
   }
