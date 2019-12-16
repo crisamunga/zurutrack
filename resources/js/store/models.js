@@ -17,10 +17,7 @@ export default {
   },
   actions: {
     fetchModels(context) {
-      let url = `${process.env.MIX_APP_URL}/api/tracker-models`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
+      let url = `${process.env.MIX_APP_URL}/webapi/tracker-models`;
 
       return new Promise((resolve, reject) => {
         axios

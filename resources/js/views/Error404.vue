@@ -15,7 +15,7 @@
         >We can't find the page you're looking for</v-card-text
       >
       <v-card-actions class="justify-center my-10">
-        <v-btn large rounded outlined class="px-10" color="light" to="/"
+        <v-btn large rounded outlined class="px-10" color="light" href="/"
           >Back to home page</v-btn
         >
       </v-card-actions>

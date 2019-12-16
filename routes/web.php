@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/login', 'Web\IndexController@index')->name('login');
+// Auth::routes();
 
-Route::fallback('Web\IndexController@index');
+// Authentication routes
+Route::group(['namespace' => 'Web'], function () {
+    Auth::routes();
+});
+
+// Web API Routes
+Route::group(['prefix' => 'webapi', 'middleware' => 'auth', 'namespace' => 'Api'], function () {
+    Route::apiResource('fleets', 'FleetController');
+    Route::apiResource('trackers', 'TrackerController');
+    Route::apiResource('tracker-models', 'TrackerModelController');
+});
+
+Route::get('/', 'HomeController@index')->name('home')->middleware("auth");
+
+
+// Route::fallback('Web\IndexController@index');

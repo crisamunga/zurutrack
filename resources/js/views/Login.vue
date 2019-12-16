@@ -24,7 +24,7 @@
                                 outlined
                                 class="px-10"
                                 color="light"
-                                to="/register"
+                                href="/register"
                                 >Sign up</v-btn
                             >
                         </v-card-actions>
@@ -94,7 +94,7 @@
                                 text
                                 class="mx-5 px-5"
                                 color="light"
-                                to="/register"
+                                href="/register"
                                 >Register</v-btn
                             >
                         </v-card-actions>

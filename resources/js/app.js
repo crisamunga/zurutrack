@@ -56,9 +56,15 @@ let vuetify = new Vuetify({
 
 Vue.config.productionTip = false;
 
-new Vue({
+// new Vue({
+//     vuetify,
+//     router,
+//     store,
+//     render: h => h(App)
+// }).$mount("#app");
+
+const app = new Vue({
     vuetify,
-    router,
     store,
-    render: h => h(App)
-}).$mount("#app");
+    el: '#app',
+});

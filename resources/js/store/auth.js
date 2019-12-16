@@ -18,15 +18,10 @@ export default {
     actions: {
         login(context, data) {
             return new Promise((resolve, reject) => {
-                let url = `${api_base_url}/api/login`;
+                let url = `${api_base_url}/login`;
                 axios
                     .post(url, data)
                     .then(response => {
-                        localStorage.setItem(
-                            "user",
-                            JSON.stringify(response.data)
-                        );
-                        context.commit("setUser", response.data);
                         resolve(response);
                     })
                     .catch(error => {
@@ -43,7 +38,7 @@ export default {
         },
         register(context, data) {
             return new Promise((resolve, reject) => {
-                let url = `${api_base_url}/api/register`;
+                let url = `${api_base_url}/register`;
                 axios
                     .post(url, data)
                     .then(response => {
@@ -64,25 +59,14 @@ export default {
         },
         logout(context) {
             return new Promise((resolve, reject) => {
-                let url = `${api_base_url}/api/logout`;
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${context.state.user.access_token}`;
+                let url = `${api_base_url}/logout`;
                 axios
                     .post(url)
                     .then(response => {
-                        localStorage.removeItem("user");
-                        context.commit("setUser", null);
-                        context.dispatch("alert/info", "You were logged out", {
-                            root: true
-                        });
                         resolve(response);
                     })
                     .catch(error => {
-                        localStorage.removeItem("user");
-                        context.commit("setUser", null);
-                        context.dispatch("alert/error", error, { root: true });
-                        resolve(response);
+                        reject(error);
                     });
             });
         }

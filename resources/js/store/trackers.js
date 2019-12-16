@@ -51,11 +51,7 @@ export default {
       context.commit("removeDrawerFilter");
     },
     index(context) {
-      let url = `${process.env.MIX_APP_URL}/api/trackers`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
-
+      let url = `${process.env.MIX_APP_URL}/webapi/trackers`;
       return new Promise((resolve, reject) => {
         axios
           .get(url)
@@ -69,10 +65,7 @@ export default {
       });
     },
     store(context, tracker) {
-      let url = `${process.env.MIX_APP_URL}/api/trackers`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
+      let url = `${process.env.MIX_APP_URL}/webapi/trackers`;
 
       return new Promise((resolve, reject) => {
         axios
@@ -87,10 +80,7 @@ export default {
       });
     },
     update(context, tracker_id, tracker) {
-      let url = `${process.env.MIX_APP_URL}/api/trackers/${tracker_id}`;
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${context.rootGetters["auth/token"]}`;
+      let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
 
       return new Promise((resolve, reject) => {
         axios
@@ -105,7 +95,7 @@ export default {
       });
     },
     delete(context, tracker_id) {
-      let url = `${process.env.MIX_APP_URL}/api/trackers/${tracker_id}`;
+      let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${context.rootGetters["auth/token"]}`;

@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import validators from "../utils/validators";
+import validators from "../../utils/validators";
 
 export default {
   data() {
@@ -147,7 +147,7 @@ export default {
             password_confirmation: this.password_confirmation
           })
           .then(result => {
-            this.$router.push({ name: "login" });
+            window.location.href = "/";
             this.errors = {};
           })
           .catch(err => {

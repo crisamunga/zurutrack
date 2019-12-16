@@ -34,7 +34,7 @@ export default {
   },
   actions: {
     index(context) {
-      let url = `${process.env.MIX_APP_URL}/api/fleets`;
+      let url = `${process.env.MIX_APP_URL}/webapi/fleets`;
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${context.rootGetters["auth/token"]}`;
@@ -52,7 +52,7 @@ export default {
       });
     },
     store(context, fleet) {
-      let url = `${process.env.MIX_APP_URL}/api/fleets`;
+      let url = `${process.env.MIX_APP_URL}/webapi/fleets`;
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${context.rootGetters["auth/token"]}`;
@@ -71,7 +71,7 @@ export default {
     },
     update(context, fleet_id, fleet) {
 
-      let url = `${process.env.MIX_APP_URL}/api/fleets/${fleet_id}`;
+      let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${context.rootGetters["auth/token"]}`;
@@ -90,7 +90,7 @@ export default {
     },
     delete(context, fleet_id) {
 
-      let url = `${process.env.MIX_APP_URL}/api/fleets/${fleet_id}`;
+      let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${context.rootGetters["auth/token"]}`;

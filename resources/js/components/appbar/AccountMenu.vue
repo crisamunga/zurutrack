@@ -58,9 +58,14 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("auth/logout").then(result => {
-        this.$router.push({ name: "login" });
-      });
+      this.$store
+        .dispatch("auth/logout")
+        .then(result => {
+          window.location.href = "/login";
+        })
+        .catch(error => {
+          window.location.href = "/login";
+        });
     }
   }
 };
