@@ -8,11 +8,7 @@
 
     <v-list-item-content>
       <v-list-item-title class="text-uppercase body-2">{{ name }}</v-list-item-title>
-      <v-list-item-subtitle class="text-uppercase caption">
-        {{
-        this.tracker.client || "No client"
-        }}
-      </v-list-item-subtitle>
+      <v-list-item-subtitle class="text-uppercase caption">{{ this.tracker.state || "Offline" }}</v-list-item-subtitle>
       <v-list-item-subtitle class="overline">
         Expires on
         <span :class="getExpiresOnColor(tracker.expires_on)">{{ this.tracker.expires_on }}</span>
@@ -35,13 +31,13 @@
       </v-list-item-action-text>
 
       <div class="text-center">
-        <sidebar-trackers-actions :tracker="tracker">
+        <sidebar-actions-menu :tracker="tracker">
           <template slot-scope="{ on }">
             <v-btn color="indigo" dark v-on="on" icon>
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
-        </sidebar-trackers-actions>
+        </sidebar-actions-menu>
       </div>
     </v-list-item-action>
   </v-list-item>

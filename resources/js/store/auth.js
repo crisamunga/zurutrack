@@ -7,6 +7,9 @@ export default {
     state: {
         user: user
     },
+    getters: {
+        token: state => state.user.access_token
+    },
     mutations: {
         setUser(state, user) {
             state.user = user;

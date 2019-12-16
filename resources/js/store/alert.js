@@ -4,6 +4,11 @@ export default {
     message: null,
     type: null
   },
+  getters: {
+    show(state) {
+      return state.message ? true : false;
+    }
+  },
   mutations: {
     setType(state, type) {
       state.type = type;

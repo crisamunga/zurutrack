@@ -18,7 +18,7 @@ class FleetController extends Controller
      */
     public function index()
     {
-        $fleets = Auth::user()->fleets;
+        $fleets = Auth::user()->fleets()->withCount("trackers")->get();
         return FleetResource::collection($fleets);
     }
 

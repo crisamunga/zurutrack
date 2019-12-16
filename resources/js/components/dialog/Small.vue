@@ -37,7 +37,8 @@ export default {
     iconColor: String,
     dialog: Boolean,
     fullscreen: Boolean,
-    value: Boolean
+    value: Boolean,
+    loading: Boolean
   },
   data() {
     return {

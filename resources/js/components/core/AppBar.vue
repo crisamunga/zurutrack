@@ -6,8 +6,10 @@
       <span class="hidden-sm-and-down text-uppercase font-weight-light montesarrat">Zuru Track</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <appbar-apps-menu></appbar-apps-menu>
-    <appbar-notification-menu></appbar-notification-menu>
+    <v-toolbar-items>
+      <appbar-apps-menu></appbar-apps-menu>
+      <appbar-notification-menu></appbar-notification-menu>
+    </v-toolbar-items>
     <appbar-account-menu></appbar-account-menu>
   </v-app-bar>
 </template>

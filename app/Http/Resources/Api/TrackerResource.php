@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use Carbon\Carbon;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,10 +20,10 @@ class TrackerResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "serial" => $this->serial,
-            "model" => $this->model,
-            "added_on" => $this->added_on,
-            "expires_on" => $this->expires_on,
-            "state" => $this->state,
+            "tracker_model" => new TrackerModelResource($this->tracker_model),
+            "added_on" => Carbon::parse($this->added_on)->isoFormat('D MMM Y'),
+            "expires_on" => Carbon::parse($this->expires_on)->isoFormat('D MMM Y'),
+            "state" => $this->state ?? "Offline",
             "last_known_location" => !($this->latitude && $this->longitude) ? null : [
                     "lat" => $this->latitude,
                     "lng" => $this->longitude

@@ -9,6 +9,7 @@ import trackers from "./trackers";
 import fleets from "./fleets";
 import clients from "./clients";
 import geofences from "./geofences";
+import models from "./models";
 
 Vue.use(Vuex);
 
@@ -24,6 +25,7 @@ const store = new Vuex.Store({
     fleets,
     clients,
     geofences,
+    models
   }
 });
 

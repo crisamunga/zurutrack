@@ -1,33 +1,9 @@
+import axios from "axios";
+
 export default {
   namespaced: true,
   state: {
-    trackers: [
-      {
-        id: 1,
-        name: "KCF 458R",
-        serial: "4578963214587",
-        model: "Noran 008",
-        reseller: "Chris Martin Amunga",
-        client: "Chris Martin Amunga",
-        added_on: "11 Nov 2019",
-        expires_on: "10 Oct 2019",
-        state: "Disabled",
-        last_known_location: { lat: -0.2, lng: 36 }
-      },
-      {
-        id: 2,
-        name: "KBM 574J",
-        serial: "7845129631594",
-        model: "Coban 102",
-        reseller: "Chris Martin Amunga",
-        client: "Chris Martin Amunga",
-        added_on: "11 Nov 2019",
-        expires_on: "11 Nov 2020",
-        state: "Active",
-        fleet: "Kenya Mpya Sacco",
-        last_known_location: { lat: -1.1, lng: 37 }
-      }
-    ],
+    trackers: [],
     drawerFilter: null
   },
   getters: {
@@ -47,6 +23,24 @@ export default {
     },
     removeDrawerFilter(state) {
       state.drawerFilter = null;
+    },
+    addTracker(state, tracker) {
+      state.trackers.push(tracker);
+    },
+    setTrackers(state, trackers) {
+      state.trackers = trackers;
+    },
+    removeTracker(state, tracker_id) {
+      state.trackers = state.trackers.filter(value => value.id != tracker_id);
+    },
+    updateTracker(state, tracker_id, newData) {
+      state.trackers = state.trackers.map(value => {
+        if (value.id == tracker_id) {
+          return newData;
+        } else {
+          return value;
+        }
+      });
     }
   },
   actions: {
@@ -56,11 +50,77 @@ export default {
     clearTracker(context) {
       context.commit("removeDrawerFilter");
     },
-    stopEngine(context) {
-      
-    },
-    resumeEngine(context) {
+    index(context) {
+      let url = `${process.env.MIX_APP_URL}/api/trackers`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${context.rootGetters["auth/token"]}`;
 
+      return new Promise((resolve, reject) => {
+        axios
+          .get(url)
+          .then(response => {
+            context.commit("setTrackers", response.data.data);
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+    store(context, tracker) {
+      let url = `${process.env.MIX_APP_URL}/api/trackers`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${context.rootGetters["auth/token"]}`;
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(url, tracker)
+          .then(response => {
+            context.commit("addTracker", response.data.data);
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+    update(context, tracker_id, tracker) {
+      let url = `${process.env.MIX_APP_URL}/api/trackers/${tracker_id}`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${context.rootGetters["auth/token"]}`;
+
+      return new Promise((resolve, reject) => {
+        axios
+          .put(url, tracker)
+          .then(response => {
+            context.commit("updateTracker", response.data.data);
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+    delete(context, tracker_id) {
+      let url = `${process.env.MIX_APP_URL}/api/trackers/${tracker_id}`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${context.rootGetters["auth/token"]}`;
+
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(url)
+          .then(response => {
+            context.commit("removeTracker", response.data.data);
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
     }
   }
 };

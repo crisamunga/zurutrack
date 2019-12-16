@@ -17,6 +17,7 @@ yarn-error.log
 
 # IDE
 /.vscode
+/_ide_helper.php
 
 # Echo server files
 laravel-echo-server.lock

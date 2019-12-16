@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FleetResource extends JsonResource
+class TrackerModelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,7 @@ class FleetResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'trackers_count' => $this->trackers_count ? $this->trackers_count : $this->trackers->count(),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'configuration_instructions' => $this->configuration_instructions
         ];
     }
 }

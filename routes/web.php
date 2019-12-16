@@ -11,5 +11,6 @@
 |
 */
 
+Route::get('/login', 'Web\IndexController@index')->name('login');
 
 Route::fallback('Web\IndexController@index');

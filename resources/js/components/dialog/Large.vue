@@ -34,9 +34,6 @@
 <script>
 export default {
   props: {
-    icon: String,
-    iconLabel: String,
-    iconColor: String,
     dialog: Boolean
   },
   data() {

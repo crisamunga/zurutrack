@@ -5,5 +5,16 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+
+export default {
+  methods: {
+    ...mapActions({
+      getTrackers: "trackers/index"
+    })
+  },
+  mounted() {
+    this.getTrackers();
+  }
+};
 </script>

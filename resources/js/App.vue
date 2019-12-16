@@ -7,7 +7,9 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 const default_layouts = "layouts-auth";
+
 export default {
   computed: {
     layout() {

@@ -1,9 +1,7 @@
 <template>
   <v-menu transition="slide-y-transition" bottom :offset-y="true">
     <template v-slot:activator="{ on }">
-      <v-btn class="title mr-2 ml-4" fab dark small color="purple" v-on="on">
-        C
-      </v-btn>
+      <v-btn class="title mr-2 ml-4" fab dark small color="purple" v-on="on">C</v-btn>
     </template>
     <v-card>
       <v-toolbar flat class="bg-primary" dark>
@@ -60,11 +58,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$store
-        .dispatch("auth/logout")
-        .then(result => {
-          this.$router.push({ name: "login" });
-        });
+      this.$store.dispatch("auth/logout").then(result => {
+        this.$router.push({ name: "login" });
+      });
     }
   }
 };

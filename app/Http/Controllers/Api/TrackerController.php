@@ -21,7 +21,7 @@ class TrackerController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $trackers = $user->trackers;
+        $trackers = $user->trackers()->with('tracker_model')->get();
         return TrackerResource::collection($trackers);
     }
 

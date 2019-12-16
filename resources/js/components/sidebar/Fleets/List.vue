@@ -6,6 +6,7 @@
       :search="search"
       :footer-props="{ itemsPerPageOptions }"
       :single-select="true"
+      :loading="loading"
       v-model="select"
     >
       <template v-slot:header>
@@ -61,7 +62,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import colors from "../../../utils/colors";
 
 export default {
@@ -76,7 +77,8 @@ export default {
       itemsPerPageOptions: [5, 10, 25, 50],
       itemsPerPage: 5,
       search: "",
-      select: []
+      select: [],
+      loading: false
     };
   },
   computed: {

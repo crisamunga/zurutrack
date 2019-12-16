@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import colors from "../../../utils/colors";
 
 export default {
@@ -39,6 +39,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      getAllFleets: "fleets/index"
+    }),
     back() {
       if (this.show) {
         this.show = null;
@@ -57,6 +60,9 @@ export default {
     getRandomColor(name) {
       return colors.getSpecificColor(name.charCodeAt(0));
     }
-  }
+  },
+  mounted() {
+    this.getAllFleets();
+  },
 };
 </script>
