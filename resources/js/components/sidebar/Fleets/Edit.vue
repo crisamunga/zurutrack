@@ -1,34 +1,59 @@
 <template>
-  <dialog-small>
+  <v-dialog v-model="dialog" width="600">
     <template v-slot:activator="{ on }">
       <buttons-hover-icon bottom icon="mdi-pencil" label="Edit" v-on="on" />
     </template>
 
-    <template v-slot:headerLeft>
-      <v-toolbar-title>
-        <span class="headline">{{ fleetName }}</span>
-      </v-toolbar-title>
-    </template>
+    <v-card class="pb-5 mx-auto">
+      <v-toolbar dark class="mb-3 bg-primary" height="40" extended extension-height="200">
+        <v-btn icon @click="dialog = false" v-if="$vuetify.breakpoint.smAndDown">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
 
-    <template v-slot:headerRight>
-      <v-btn text @click="save"><v-icon left>mdi-upload</v-icon> Save</v-btn>
-    </template>
+        <v-toolbar-title>
+          <span class="headline">{{ name }}</span>
+        </v-toolbar-title>
 
-    <v-card flat>
-      <v-card-text>
-        <span class="caption">Update your fleet details</span>
-      </v-card-text>
+        <v-spacer></v-spacer>
+        <v-btn text @click="save">
+          <v-icon left>mdi-upload</v-icon>Save
+        </v-btn>
+        <v-btn text @click="dialog = false" v-if="$vuetify.breakpoint.mdAndUp">
+          <v-icon left>mdi-close</v-icon>Close
+        </v-btn>
+      </v-toolbar>
 
-      <v-card-text>
-        <v-text-field v-model="fleetName" label="Fleet Name" />
-      </v-card-text>
+      <v-card class="mx-5" style="margin-top:-150px;" min-height="200" :loading="loading">
+        <v-card-text>
+          <span class="caption">Update your fleet details</span>
+        </v-card-text>
 
+        <v-form ref="form">
+          <v-card-text>
+            <v-text-field
+              label="Name"
+              v-model="name"
+              :rules="nameRules"
+              :error-messages="errors.name"
+            />
+          </v-card-text>
+        </v-form>
+
+        <v-alert type="error" v-if="errorMessage" class="bg-error">{{ errorMessage }}</v-alert>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="dialog = false" v-if="$vuetify.breakpoint.mdAndUp" color="red">Cancel</v-btn>
+          <v-btn text @click="save" color="primary">Save</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-card>
-  </dialog-small>
+  </v-dialog>
 </template>
 
 <script>
-import colors from "../../../utils/colors";
+import { mapActions } from "vuex";
+import validators from "../../../utils/validators";
 export default {
   props: {
     fleet: {
@@ -38,20 +63,54 @@ export default {
   },
   data() {
     return {
-      dialog: null,
-      fleetName: ""
+      m_Dialog: null,
+      name: "",
+      nameRules: [v => validators.required(v)],
+      loading: false,
+      errors: {},
+      errorMessage: null
     };
   },
+  computed: {
+    dialog: {
+      get() {
+        return this.m_Dialog;
+      },
+      set(val) {
+        this.m_Dialog = val;
+        if (!val) {
+          this.name = this.fleet.name;
+        }
+      }
+    }
+  },
   methods: {
+    ...mapActions({
+      updateFleet: "fleets/update"
+    }),
     save() {
-      this.$emit("saved");
-    },
-    getRandomColor() {
-      return colors.getRandomColor();
+      if (this.$refs.form.validate()) {
+        const data = {
+          id: this.fleet.id,
+          name: this.name
+        };
+        this.loading = true;
+        this.updateFleet(data)
+          .then(response => {
+            this.loading = false;
+            this.errorMessage = null;
+            this.dialog = false;
+          })
+          .catch(error => {
+            this.loading = false;
+            this.errors = error.response.data.errors;
+            this.errorMessage = error.response.data.message;
+          });
+      }
     }
   },
   mounted() {
-    this.fleetName = this.fleet.name;
+    this.name = this.fleet.name;
   }
 };
 </script>

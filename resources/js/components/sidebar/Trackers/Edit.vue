@@ -153,7 +153,7 @@ export default {
           .then(response => {
             this.loading = false;
             this.errorMessage = null;
-            this.m_Dialog = false;
+            this.dialog = false;
           })
           .catch(error => {
             this.loading = false;

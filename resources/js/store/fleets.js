@@ -17,9 +17,9 @@ export default {
     store(state, fleet) {
       state.fleets.push(fleet);
     },
-    update(state, fleet_id, fleet) {
+    update(state, fleet) {
       state.fleets = state.fleets.map(value => {
-        if (value.id == fleet_id) {
+        if (value.id == fleet.id) {
           return fleet;
         } else {
           return value;
@@ -68,7 +68,7 @@ export default {
         axios
           .put(url, fleet)
           .then(response => {
-            context.commit("update", fleet_id, response.data.data);
+            context.commit("update", response.data.data);
             resolve(response);
           })
           .catch(error => {

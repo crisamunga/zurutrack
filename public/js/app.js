@@ -5766,7 +5766,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utils/colors */ "./resources/js/utils/colors.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _utils_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/validators */ "./resources/js/utils/validators.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5797,6 +5828,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fleet: {
@@ -5806,20 +5838,56 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      dialog: null,
-      fleetName: ""
+      m_Dialog: null,
+      name: "",
+      nameRules: [function (v) {
+        return _utils_validators__WEBPACK_IMPORTED_MODULE_1__["default"].required(v);
+      }],
+      loading: false,
+      errors: {},
+      errorMessage: null
     };
   },
-  methods: {
-    save: function save() {
-      this.$emit("saved");
-    },
-    getRandomColor: function getRandomColor() {
-      return _utils_colors__WEBPACK_IMPORTED_MODULE_0__["default"].getRandomColor();
+  computed: {
+    dialog: {
+      get: function get() {
+        return this.m_Dialog;
+      },
+      set: function set(val) {
+        this.m_Dialog = val;
+
+        if (!val) {
+          this.name = this.fleet.name;
+        }
+      }
     }
   },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    updateFleet: "fleets/update"
+  }), {
+    save: function save() {
+      var _this = this;
+
+      if (this.$refs.form.validate()) {
+        var data = {
+          id: this.fleet.id,
+          name: this.name
+        };
+        this.loading = true;
+        this.updateFleet(data).then(function (response) {
+          _this.loading = false;
+          _this.errorMessage = null;
+          _this.dialog = false;
+        })["catch"](function (error) {
+          _this.loading = false;
+          _this.errors = error.response.data.errors;
+          _this.errorMessage = error.response.data.message;
+        });
+      }
+    }
+  }),
   mounted: function mounted() {
-    this.fleetName = this.fleet.name;
+    this.name = this.fleet.name;
   }
 });
 
@@ -6596,7 +6664,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.updateTracker(data).then(function (response) {
           _this.loading = false;
           _this.errorMessage = null;
-          _this.m_Dialog = false;
+          _this.dialog = false;
         })["catch"](function (error) {
           _this.loading = false;
           _this.errors = error.response.data.errors;
@@ -23899,8 +23967,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "dialog-small",
+    "v-dialog",
     {
+      attrs: { width: "600" },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -23916,66 +23985,173 @@ var render = function() {
               )
             ]
           }
+        }
+      ]),
+      model: {
+        value: _vm.dialog,
+        callback: function($$v) {
+          _vm.dialog = $$v
         },
-        {
-          key: "headerLeft",
-          fn: function() {
-            return [
+        expression: "dialog"
+      }
+    },
+    [
+      _vm._v(" "),
+      _c(
+        "v-card",
+        { staticClass: "pb-5 mx-auto" },
+        [
+          _c(
+            "v-toolbar",
+            {
+              staticClass: "mb-3 bg-primary",
+              attrs: {
+                dark: "",
+                height: "40",
+                extended: "",
+                "extension-height": "200"
+              }
+            },
+            [
+              _vm.$vuetify.breakpoint.smAndDown
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { icon: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("mdi-arrow-left")])],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c("v-toolbar-title", [
                 _c("span", { staticClass: "headline" }, [
-                  _vm._v(_vm._s(_vm.fleetName))
+                  _vm._v(_vm._s(_vm.name))
                 ])
-              ])
-            ]
-          },
-          proxy: true
-        },
-        {
-          key: "headerRight",
-          fn: function() {
-            return [
+              ]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
               _c(
                 "v-btn",
                 { attrs: { text: "" }, on: { click: _vm.save } },
                 [
                   _c("v-icon", { attrs: { left: "" } }, [_vm._v("mdi-upload")]),
-                  _vm._v(" Save")
+                  _vm._v("Save\n      ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$vuetify.breakpoint.mdAndUp
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [
+                      _c("v-icon", { attrs: { left: "" } }, [
+                        _vm._v("mdi-close")
+                      ]),
+                      _vm._v("Close\n      ")
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card",
+            {
+              staticClass: "mx-5",
+              staticStyle: { "margin-top": "-150px" },
+              attrs: { "min-height": "200", loading: _vm.loading }
+            },
+            [
+              _c("v-card-text", [
+                _c("span", { staticClass: "caption" }, [
+                  _vm._v("Update your fleet details")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-form",
+                { ref: "form" },
+                [
+                  _c(
+                    "v-card-text",
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Name",
+                          rules: _vm.nameRules,
+                          "error-messages": _vm.errors.name
+                        },
+                        model: {
+                          value: _vm.name,
+                          callback: function($$v) {
+                            _vm.name = $$v
+                          },
+                          expression: "name"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.errorMessage
+                ? _c(
+                    "v-alert",
+                    { staticClass: "bg-error", attrs: { type: "error" } },
+                    [_vm._v(_vm._s(_vm.errorMessage))]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _vm.$vuetify.breakpoint.mdAndUp
+                    ? _c(
+                        "v-btn",
+                        {
+                          attrs: { text: "", color: "red" },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { text: "", color: "primary" },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Save")]
+                  )
                 ],
                 1
               )
-            ]
-          },
-          proxy: true
-        }
-      ])
-    },
-    [
-      _vm._v(" "),
-      _vm._v(" "),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        { attrs: { flat: "" } },
-        [
-          _c("v-card-text", [
-            _c("span", { staticClass: "caption" }, [
-              _vm._v("Update your fleet details")
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c("v-text-field", {
-                attrs: { label: "Fleet Name" },
-                model: {
-                  value: _vm.fleetName,
-                  callback: function($$v) {
-                    _vm.fleetName = $$v
-                  },
-                  expression: "fleetName"
-                }
-              })
             ],
             1
           )
@@ -32840,9 +33016,9 @@ __webpack_require__.r(__webpack_exports__);
     store: function store(state, fleet) {
       state.fleets.push(fleet);
     },
-    update: function update(state, fleet_id, fleet) {
+    update: function update(state, fleet) {
       state.fleets = state.fleets.map(function (value) {
-        if (value.id == fleet_id) {
+        if (value.id == fleet.id) {
           return fleet;
         } else {
           return value;
@@ -32883,7 +33059,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = "".concat("http://zurutrack.test", "/webapi/fleets/").concat(fleet_id);
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(url, fleet).then(function (response) {
-          context.commit("update", fleet_id, response.data.data);
+          context.commit("update", response.data.data);
           resolve(response);
         })["catch"](function (error) {
           reject(error);
