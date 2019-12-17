@@ -9,43 +9,13 @@
         <v-toolbar-title>Trackers</v-toolbar-title>
 
         <v-spacer></v-spacer>
-
-        <!-- <trackers-list>
-          <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on"><v-icon>mdi-view-dashboard</v-icon></v-btn>
-          </template>
-        </trackers-list> -->
-
         <sidebar-trackers-create>
           <template v-slot:activator="{ on }">
             <buttons-hover-icon bottom icon="mdi-plus" label="New tracker" v-on="on" />
           </template>
         </sidebar-trackers-create>
-
-        
-        <!-- <v-tabs fixed-tabs v-model="tab" background-color="transparent">
-          <v-tabs-slider></v-tabs-slider>
-
-          <v-tab v-for="item in tabs" :key="item">
-            {{ item }}
-          </v-tab>
-        </v-tabs> -->
-
-        <!-- <v-btn small icon @click="hideDrawer">
-          <v-icon>mdi-close</v-icon>
-        </v-btn> -->
       </v-toolbar>
     </template>
-
-    <!-- <v-tabs-items v-model="tab" class="transparent">
-      <v-tab-item>
-        <sidebar-trackers-list></sidebar-trackers-list>
-      </v-tab-item>
-      <v-tab-item>
-        <sidebar-fleets-list></sidebar-fleets-list>
-      </v-tab-item>
-    </v-tabs-items> -->
-
     <sidebar-trackers-list></sidebar-trackers-list>
   </v-navigation-drawer>
 </template>
@@ -77,7 +47,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  .light-bg {
-    background-color: #f2f6ff;
-  }
+.light-bg {
+  background-color: #f2f6ff;
+}
 </style>

@@ -7,7 +7,7 @@
     </v-list-item-avatar>
 
     <v-list-item-content>
-      <v-list-item-title class="text-uppercase body-2">{{ name }}</v-list-item-title>
+      <v-list-item-title class="text-uppercase body-2">{{ this.tracker.name }}</v-list-item-title>
       <v-list-item-subtitle class="text-uppercase caption">{{ this.tracker.state || "Offline" }}</v-list-item-subtitle>
       <v-list-item-subtitle class="overline">
         Expires on
@@ -58,21 +58,6 @@ export default {
       menu: false,
       notification: false,
       hints: true,
-      name: "",
-      model: "",
-      serial: "",
-      sim: "",
-      models: ["Noran 008", "Coban 102"],
-      items: [
-        { icon: "mdi-pen", title: "Details", color: "teal" },
-        { icon: "mdi-send", title: "Commands", color: "orange darken-2" },
-        { icon: "mdi-bell", title: "Notifications", color: "blue" },
-        { icon: "mdi-chart-bar", title: "Statistics", color: "purple" },
-        { icon: "mdi-map-marker-circle", title: "Geofences", color: "indigo" },
-        { icon: "mdi-map-marker-radius", title: "Waypoints", color: "cyan" },
-        { icon: "mdi-account", title: "Users", color: "blue-grey" },
-        { icon: "mdi-settings", title: "Settings", color: "lime darken-3" }
-      ]
     };
   },
   computed: {
@@ -91,16 +76,7 @@ export default {
     },
     expired(date) {
       return new Date(date) > new Date();
-    },
-    initCurrentValues() {
-      this.name = this.tracker.name;
-      this.model = this.tracker.model;
-      this.serial = this.tracker.serial;
-      this.sim = this.tracker.sim;
     }
-  },
-  mounted() {
-    this.initCurrentValues();
   }
 };
 </script>

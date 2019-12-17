@@ -1,10 +1,8 @@
 <template>
   <v-tooltip :top="top" :bottom="bottom" :left="left" :right="right">
     <template v-slot:activator="{ on }">
-      <v-btn icon :dark="dark" :color="color" v-on="on" @click="onClick">
-        <v-icon>
-          {{ icon }}
-        </v-icon>
+      <v-btn icon :dark="dark" :color="color" v-on="on" @click="onClick" :small="small" :large="large">
+        <v-icon>{{ icon }}</v-icon>
       </v-btn>
     </template>
     {{ label }}
@@ -22,6 +20,8 @@ export default {
     right: Boolean,
     top: Boolean,
     bottom: Boolean,
+    small: Boolean,
+    large: Boolean,
   },
   methods: {
     onClick() {

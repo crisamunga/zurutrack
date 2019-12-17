@@ -45,15 +45,15 @@
           </v-list-item-action>
 
           <v-list-item-action>
-            <v-list-item-action-text>Edit</v-list-item-action-text>
             <sidebar-fleets-edit :fleet="item" />
           </v-list-item-action>
 
           <v-list-item-action>
-            <v-list-item-action-text>Delete</v-list-item-action-text>
-            <v-btn icon @click="remove(item)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <sidebar-fleets-delete :fleet="item">
+              <template slot-scope="{ on }">
+                <buttons-hover-icon bottom icon="mdi-delete" label="Delete" v-on="on" />
+              </template>
+            </sidebar-fleets-delete>
           </v-list-item-action>
         </v-list-item>
       </template>

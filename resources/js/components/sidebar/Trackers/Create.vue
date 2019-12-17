@@ -16,7 +16,7 @@
         </v-btn>
       </v-toolbar>
 
-      <v-card class="mx-5" style="margin-top:-350px;" min-height="400" :loading="loading">
+      <v-card class="mx-5" style="margin-top:-350px;" min-height="500" :loading="loading">
         <v-container>
           <v-stepper v-model="element" vertical class="elevation-0">
             <v-stepper-step :complete="element > 1" step="1">Enter your tracker details</v-stepper-step>

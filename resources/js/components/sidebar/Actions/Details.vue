@@ -8,9 +8,13 @@
       <v-btn text small>
         <v-icon left>mdi-upload</v-icon>Save
       </v-btn>
-      <v-btn text small>
-        <v-icon left>mdi-delete</v-icon>Delete
-      </v-btn>
+      <sidebar-trackers-delete :tracker="tracker">
+        <template slot-scope="{ on }">
+          <v-btn text small v-on="on">
+            <v-icon left>mdi-delete</v-icon>Delete
+          </v-btn>
+        </template>
+      </sidebar-trackers-delete>
     </v-toolbar>
 
     <v-list class="transparent">

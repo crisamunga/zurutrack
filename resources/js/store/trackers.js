@@ -33,10 +33,11 @@ export default {
     removeTracker(state, tracker_id) {
       state.trackers = state.trackers.filter(value => value.id != tracker_id);
     },
-    updateTracker(state, tracker_id, newData) {
+    updateTracker(state, newTracker) {
+      const tracker_id = newTracker.id;
       state.trackers = state.trackers.map(value => {
         if (value.id == tracker_id) {
-          return newData;
+          return newTracker;
         } else {
           return value;
         }
@@ -78,7 +79,8 @@ export default {
           });
       });
     },
-    update(context, tracker_id, tracker) {
+    update(context, tracker) {
+      const tracker_id = tracker.id;
       let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
       return new Promise((resolve, reject) => {
         axios
@@ -98,7 +100,7 @@ export default {
         axios
           .delete(url)
           .then(response => {
-            context.commit("removeTracker", response.data.data);
+            context.commit("removeTracker", tracker_id);
             resolve(response);
           })
           .catch(error => {

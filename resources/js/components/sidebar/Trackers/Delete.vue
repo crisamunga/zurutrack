@@ -42,7 +42,7 @@
 import { mapActions } from "vuex";
 export default {
   props: {
-    fleet: {
+    tracker: {
       type: Object,
       required: true
     }
@@ -54,10 +54,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      deleteFleet: "fleets/delete"
+      deleteTracker: "trackers/delete"
     }),
     confirm() {
-      this.deleteFleet(this.fleet.id).then(response => {
+      this.deleteTracker(this.tracker.id).then(response => {
         this.dialog = false;
       });
     },

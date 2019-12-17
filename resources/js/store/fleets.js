@@ -61,7 +61,8 @@ export default {
           });
       });
     },
-    update(context, fleet_id, fleet) {
+    update(context, fleet) {
+      const fleet_id = fleet.id;
       let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
       return new Promise((resolve, reject) => {
         axios

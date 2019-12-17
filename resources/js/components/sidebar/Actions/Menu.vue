@@ -11,6 +11,21 @@
     </template>
 
     <v-card :width="width" max-height="700" dark class="bg-secondary">
+      <v-toolbar flat dark color="transparent" v-if="!show">
+        <v-spacer></v-spacer>
+        <v-toolbar-title class="caption text-uppercase">{{tracker.name}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+        <sidebar-trackers-edit :tracker="tracker" />
+        <sidebar-trackers-delete :tracker="tracker">
+          <template slot-scope="{ on }">
+            <buttons-hover-icon top icon="mdi-delete" label="Delete" v-on="on" />
+          </template>
+        </sidebar-trackers-delete>
+        <buttons-hover-icon top icon="mdi-close" label="Close" @click="menu = false" />
+        </v-toolbar-items>
+      </v-toolbar>
+
       <v-container fluid v-if="!show" class="bg-secondary">
         <v-row class="mt-2" dense>
           <v-col
@@ -33,11 +48,7 @@
 
       <sidebar-actions-details v-if="show == 'Details'" :tracker="tracker" @back="clearItem()" />
       <sidebar-actions-commands v-if="show == 'Commands'" :tracker="tracker" @back="clearItem()" />
-      <sidebar-actions-geofences
-        v-if="show == 'Geofences'"
-        :tracker="tracker"
-        @back="clearItem()"
-      />
+      <sidebar-actions-geofences v-if="show == 'Geofences'" :tracker="tracker" @back="clearItem()" />
       <sidebar-actions-notifications
         v-if="show == 'Notifications'"
         :tracker="tracker"
@@ -81,13 +92,6 @@ export default {
       closeOnClick: true,
       items: [
         {
-          icon: "mdi-pen",
-          title: "Details",
-          color: "teal",
-          width: 500,
-          closeOnClick: true
-        },
-        {
           icon: "mdi-send",
           title: "Commands",
           color: "orange darken-2",
@@ -126,7 +130,7 @@ export default {
           icon: "mdi-vector-line",
           title: "Route history",
           color: "brown",
-          width: 300,
+          width: 400,
           closeOnClick: false
         },
         {
