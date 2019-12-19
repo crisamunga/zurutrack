@@ -47,10 +47,18 @@ class UserController extends Controller
         $data = $request->validated();
         $email = $data['email'];
         $client = User::where('email', $email)->first();
+        $user = Auth::user();
+
+        if ($user->email == $email) {
+            return response()->json([
+                "message" => "The given data was invalid.",
+                "errors" => ["email" => ["The selected email belongs to you."] ]
+            ], 419);
+        }
+
         if (!$client) {
             return response()->json(['message' => 'Not Found'], 404);
         }
-        $user = Auth::user();
         $user->clients()->attach($client);
         return new UserResource($client);
     }

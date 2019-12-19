@@ -7,7 +7,7 @@ import alert from "./alert";
 import app from "./app";
 import trackers from "./trackers";
 import fleets from "./fleets";
-import clients from "./clients";
+import users from "./users";
 import geofences from "./geofences";
 import models from "./models";
 
@@ -23,7 +23,7 @@ const store = new Vuex.Store({
     app,
     trackers,
     fleets,
-    clients,
+    users,
     geofences,
     models
   }

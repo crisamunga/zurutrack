@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default {
   namespaced: true,
   state: {
@@ -17,7 +15,7 @@ export default {
   },
   actions: {
     fetchModels(context) {
-      let url = `${process.env.MIX_APP_URL}/webapi/tracker-models`;
+      let url = "/webapi/tracker-models";
       return new Promise((resolve, reject) => {
         axios
           .get(url)

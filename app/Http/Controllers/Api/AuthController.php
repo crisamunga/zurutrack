@@ -12,9 +12,9 @@ use App\Http\Requests\Api\RegisterRequest;
 
 class AuthController extends Controller
 {
-    public function profile()
+    public function profile(Request $request)
     {
-        return new UserResource(Auth::user());
+        return new UserResource($request->user());
     }
 
     public function register(RegisterRequest $request)

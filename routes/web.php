@@ -12,9 +12,7 @@
 */
 
 
-Route::middleware('auth')->get('/webapi/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth')->get('/webapi/user', 'Api\AuthController@profile');
 
 // Authentication routes
 Route::group(['namespace' => 'Web'], function () {
