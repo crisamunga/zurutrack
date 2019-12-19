@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default {
   namespaced: true,
   state: {
@@ -7,6 +5,9 @@ export default {
     drawerFilter: null
   },
   getters: {
+    all(state) {
+      return state.trackers
+    },
     locatedTrackers(state) {
       return state.trackers.filter(tracker => tracker.last_known_location);
     },
@@ -52,7 +53,7 @@ export default {
       context.commit("removeDrawerFilter");
     },
     index(context) {
-      let url = `${process.env.MIX_APP_URL}/webapi/trackers`;
+      let url = "/webapi/trackers";
       return new Promise((resolve, reject) => {
         axios
           .get(url)
@@ -66,7 +67,7 @@ export default {
       });
     },
     store(context, tracker) {
-      let url = `${process.env.MIX_APP_URL}/webapi/trackers`;
+      let url = "/webapi/trackers";
       return new Promise((resolve, reject) => {
         axios
           .post(url, tracker)
@@ -81,7 +82,7 @@ export default {
     },
     update(context, tracker) {
       const tracker_id = tracker.id;
-      let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
+      let url = `/webapi/trackers/${tracker_id}`;
       return new Promise((resolve, reject) => {
         axios
           .put(url, tracker)
@@ -95,7 +96,7 @@ export default {
       });
     },
     delete(context, tracker_id) {
-      let url = `${process.env.MIX_APP_URL}/webapi/trackers/${tracker_id}`;
+      let url = `/webapi/trackers/${tracker_id}`;
       return new Promise((resolve, reject) => {
         axios
           .delete(url)

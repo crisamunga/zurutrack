@@ -43,6 +43,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $resellers
+ * @property-read int|null $resellers_count
  */
 class User extends Authenticatable
 {
@@ -93,5 +95,15 @@ class User extends Authenticatable
     public function trackers()
     {
         return $this->belongsToMany(Tracker::class, 'tracker_user', 'user_id', 'tracker_id')->withPivot('is_admin');
+    }
+
+    public function clients()
+    {
+        return $this->belongsToMany(User::class, 'linked_users', 'linkee_id', 'linker_id');
+    }
+
+    public function resellers()
+    {
+        return $this->belongsToMany(User::class, 'linked_users', 'linker_id', 'linkee_id');
     }
 }

@@ -5,17 +5,23 @@ use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
 
 class AuthController extends Controller
 {
+    public function profile()
+    {
+        return new UserResource(Auth::user());
+    }
+
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
         $user = User::create($data);
-        return response()->json(['message' => 'Registration successful'], 200);
+        return new UserResource($user);
     }
 
     public function login(LoginRequest $request)

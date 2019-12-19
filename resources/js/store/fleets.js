@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default {
   namespaced: true,
   state: {
@@ -34,7 +32,7 @@ export default {
   },
   actions: {
     index(context) {
-      let url = `${process.env.MIX_APP_URL}/webapi/fleets`;
+      let url = `/webapi/fleets`;
       return new Promise((resolve, reject) => {
         axios
           .get(url)
@@ -48,7 +46,7 @@ export default {
       });
     },
     store(context, fleet) {
-      let url = `${process.env.MIX_APP_URL}/webapi/fleets`;
+      let url = `/webapi/fleets`;
       return new Promise((resolve, reject) => {
         axios
           .post(url, fleet)
@@ -63,7 +61,7 @@ export default {
     },
     update(context, fleet) {
       const fleet_id = fleet.id;
-      let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
+      let url = `/webapi/fleets/${fleet_id}`;
       return new Promise((resolve, reject) => {
         axios
           .put(url, fleet)
@@ -77,7 +75,7 @@ export default {
       });
     },
     delete(context, fleet_id) {
-      let url = `${process.env.MIX_APP_URL}/webapi/fleets/${fleet_id}`;
+      let url = `/webapi/fleets/${fleet_id}`;
       return new Promise((resolve, reject) => {
         axios
           .delete(url)

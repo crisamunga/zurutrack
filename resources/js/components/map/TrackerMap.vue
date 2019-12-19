@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      trackers: "trackers/locatedTrackers"
+      trackers: "trackers/all"
     })
   }
 };

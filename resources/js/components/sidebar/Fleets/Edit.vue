@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" width="600">
     <template v-slot:activator="{ on }">
-      <buttons-hover-icon bottom icon="mdi-pencil" label="Edit" v-on="on" />
+      <slot :on="on" />
     </template>
 
     <v-card class="pb-5 mx-auto">

@@ -40,18 +40,30 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-list-item-action-text>Set</v-list-item-action-text>
-            <v-switch :input-value="isSelected(item)" @change="(v) => select(item, v)" />
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <v-switch
+                  :input-value="isSelected(item)"
+                  @change="(v) => select(item, v)"
+                  v-on="on"
+                />
+              </template>
+              <span>Set</span>
+            </v-tooltip>
           </v-list-item-action>
 
-          <v-list-item-action>
-            <sidebar-fleets-edit :fleet="item" />
+          <v-list-item-action class="ml-3">
+            <sidebar-fleets-edit :fleet="item">
+              <template v-slot="{ on }">
+                <buttons-hover-icon top icon="mdi-pencil" label="Edit" v-on="on" />
+              </template>
+            </sidebar-fleets-edit>
           </v-list-item-action>
 
-          <v-list-item-action>
+          <v-list-item-action class="ml-0">
             <sidebar-fleets-delete :fleet="item">
               <template slot-scope="{ on }">
-                <buttons-hover-icon bottom icon="mdi-delete" label="Delete" v-on="on" />
+                <buttons-hover-icon top icon="mdi-delete" label="Delete" v-on="on" />
               </template>
             </sidebar-fleets-delete>
           </v-list-item-action>

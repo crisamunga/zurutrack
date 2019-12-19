@@ -4,8 +4,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-window.axios = require("axios");
 window.Vue = require("vue");
+
+import axios from "./plugins/axios";
+window.axios = axios
 
 import Echo from "laravel-echo";
 window.io = require("socket.io-client");
